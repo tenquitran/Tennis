@@ -36,7 +36,7 @@ bool Game::initialize(HWND hWnd)
 	int centerX = (wndRect.right - wndRect.left) / 2;
 	int centerY = (wndRect.bottom - wndRect.top) / 2;
 
-#if 0
+#if 1
 	// Move the ball to the center of the screen.
 	m_ball.initialize(centerX, centerY);
 #else
@@ -56,6 +56,11 @@ bool Game::shutdown()
 	return true;
 }
 
+bool Game::isEnded() const
+{
+	return m_gameEnded;
+}
+
 #if 0
 bool Game::shouldRun() const
 {
@@ -63,9 +68,11 @@ bool Game::shouldRun() const
 }
 #endif
 
+#if 0
 void Game::processInput()
 {
 }
+#endif
 
 void Game::updateState()
 {
@@ -78,7 +85,12 @@ void Game::updateState()
 		delta = 0.05f;
 	}
 
-	m_ball.updatePos(delta, m_paddle.getRect());
+	m_ball.updatePos(delta, m_paddle.getRect(), m_field.right, m_paddle.getPaddlePosY());
+
+	if (m_ball.isGone())
+	{
+		m_gameEnded = true;
+	}
 }
 
 void Game::render(HDC hDc)

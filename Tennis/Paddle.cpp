@@ -82,3 +82,8 @@ RECT Paddle::getRect() const
 {
 	return m_rect;
 }
+
+int Paddle::getPaddlePosY() const
+{
+	return m_center.m_y;
+}

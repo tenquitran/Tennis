@@ -18,11 +18,15 @@ namespace TennisApp
 
 		bool shutdown();
 
+		bool isEnded() const;
+
 #if 0
 		bool shouldRun() const;
 #endif
 
+#if 0
 		void processInput();
+#endif
 
 		void updateState();
 
@@ -50,5 +54,8 @@ namespace TennisApp
 
 		// Number of ticks since the game start.
 		ULONGLONG m_ticks = {};
+
+		// true if the game is ended.
+		bool m_gameEnded = { false };
 	};
 }

@@ -159,11 +159,20 @@ int MainWindow::runLoop()
 			DispatchMessage(&msg);
 		}
 
-		m_game.processInput();
+		//m_game.processInput();
 
 		//game.updateState();
 
 		//game.render(m_hWnd, hDc);
+
+#if 0
+		if (m_game.isEnded())
+		{
+			// TODO: display something more fancy here
+			std::cout << "Game over\n";
+			return 0;
+		}
+#endif
 	}
 
 	return 0;
@@ -281,6 +290,15 @@ LRESULT MainWindow::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 	case WM_TIMER:
 		{
 			pWnd->m_game.updateState();
+
+#if 1
+			if (pWnd->m_game.isEnded())
+			{
+				// TODO: display something more fancy here
+				std::cout << "Game over\n";
+				DestroyWindow(hWnd);
+			}
+#endif
 
 #if 1
 			InvalidateRect(hWnd, nullptr, TRUE);

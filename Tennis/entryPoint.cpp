@@ -16,10 +16,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // Redirect std::wcout and std::wcerr output to the log file.
-    std::wofstream out("log.txt");
-    std::wcout.rdbuf(out.rdbuf());
-    std::wcerr.rdbuf(out.rdbuf());
+    // Redirect std::cout and std::cerr output to the log file.
+    std::ofstream out("log.txt");
+    std::cout.rdbuf(out.rdbuf());
+    std::cerr.rdbuf(out.rdbuf());
 
     int wndWidth  = 800;
     int wndHeight = 600;

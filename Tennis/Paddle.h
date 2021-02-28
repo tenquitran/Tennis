@@ -24,6 +24,8 @@ namespace TennisApp
 
 		RECT getRect() const;
 
+		int getPaddlePosY() const;
+
 	private:
 		void recalculateRect();
 
