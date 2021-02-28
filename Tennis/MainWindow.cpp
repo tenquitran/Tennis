@@ -125,54 +125,17 @@ ATOM MainWindow::registerClass(HINSTANCE hInstance)
 	return RegisterClassExW(&wcex);
 }
 
-#if 0
-void MainWindow::clearBackground(HDC hDc)
-{
-	RECT rect = {};
-
-	if (GetClientRect(m_hWnd, &rect))
-	{
-		FillRect(hDc, &rect, m_backgroundBrush);
-	}
-}
-#endif
-
 int MainWindow::runLoop()
 {
-	HDC hDc = GetDC(m_hWnd);
-
-	if (!hDc)
-	{
-		std::cerr << __FUNCTION__ << "GetDC() failed\n";
-		ATLASSERT(FALSE); return 1;
-	}
-
 	MSG msg = {};
 
-	while (WM_QUIT != msg.message
-		/*&& game.shouldRun() */
-		)
+	while (WM_QUIT != msg.message)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
-		//m_game.processInput();
-
-		//game.updateState();
-
-		//game.render(m_hWnd, hDc);
-
-#if 0
-		if (m_game.isEnded())
-		{
-			// TODO: display something more fancy here
-			std::cout << "Game over\n";
-			return 0;
-		}
-#endif
 	}
 
 	return 0;
@@ -219,9 +182,9 @@ void MainWindow::paint(HWND hWnd, HDC hDc)
 	m_game.render(hdcMem);
 
 	// Blt the changes to the screen DC.
-	if (!BitBlt(hDc,
-		client.left, client.top, client.right - client.left, client.bottom - client.top,
-		hdcMem, 0, 0, SRCCOPY))
+	if (!BitBlt(
+			hDc, client.left, client.top, client.right - client.left, client.bottom - client.top,
+			hdcMem, 0, 0, SRCCOPY))
 	{
 		// DWORD err = GetLastError();    // don't clutter the log
 		ATLASSERT(FALSE); return;
@@ -276,11 +239,8 @@ LRESULT MainWindow::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		{
 			PAINTSTRUCT ps;
 			HDC hDc = BeginPaint(hWnd, &ps);
-			
-			//pWnd->clearBackground(hDc);
 
 			pWnd->paint(hWnd, hDc);
-			//pWnd->game.render(hWnd, hDc);
 
 			EndPaint(hWnd, &ps);
 		}
@@ -291,14 +251,12 @@ LRESULT MainWindow::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		{
 			pWnd->m_game.updateState();
 
-#if 1
 			if (pWnd->m_game.isEnded())
 			{
 				// TODO: display something more fancy here
 				std::cout << "Game over\n";
 				DestroyWindow(hWnd);
 			}
-#endif
 
 #if 1
 			InvalidateRect(hWnd, nullptr, TRUE);
@@ -365,5 +323,6 @@ INT_PTR CALLBACK MainWindow::aboutDlgProc(HWND hDlg, UINT message, WPARAM wParam
 		}
 		break;
 	}
+
 	return (INT_PTR)FALSE;
 }

@@ -11,7 +11,6 @@ const int Width = 25;
 
 //const float Velocity = 150.0f;
 const float Velocity = 75.0f;
-//const int Velocity = 5;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -37,19 +36,8 @@ void Ball::initialize(int x, int y)
 	m_center.m_y = y;
 }
 
-void Ball::updatePos(float delta, const RECT& paddle, int rightEdge, int paddlePosY)
+void Ball::updatePos(float delta, const RECT& paddle, int paddlePosY, int rightEdge)
 {
-#if 0
-	m_center.m_x += m_velocity.m_x;
-	m_center.m_y += m_velocity.m_y;
-#endif
-
-#if 0//def _DEBUG
-	CAtlString str;
-	str.Format(L"delta: %f\n", delta);
-	OutputDebugStringW(str);
-#endif
-
 	if (   m_center.m_y + Width / 2 >= m_field.bottom
 		&& m_velocity.m_y > 0.0f)
 	{
@@ -107,12 +95,6 @@ void Ball::draw(HDC hDc)
 	rect.right  = m_center.m_x + Width / 2;
 	rect.top    = m_center.m_y - Width / 2;
 	rect.bottom = m_center.m_y + Width / 2;
-
-#if 0//def _DEBUG
-	CAtlString str;
-	str.Format(L"center: %d, %d\n", m_center.m_x, m_center.m_y);
-	OutputDebugStringW(str);
-#endif
 
 	Rectangle(hDc, rect.left, rect.top, rect.right, rect.bottom);
 }

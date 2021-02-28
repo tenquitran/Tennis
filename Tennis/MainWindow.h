@@ -26,10 +26,6 @@ namespace TennisApp
 		// Paint with double-buffering.
 		void paint(HWND hWnd, HDC hDc);
 
-#if 0
-		void clearBackground(HDC hDc);
-#endif
-
 	private:
 		HINSTANCE m_hInstance = nullptr;
 

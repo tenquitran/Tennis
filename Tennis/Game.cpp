@@ -85,7 +85,7 @@ void Game::updateState()
 		delta = 0.05f;
 	}
 
-	m_ball.updatePos(delta, m_paddle.getRect(), m_field.right, m_paddle.getPaddlePosY());
+	m_ball.updatePos(delta, m_paddle.getRect(), m_paddle.getPaddlePosY(), m_field.right);
 
 	if (m_ball.isGone())
 	{

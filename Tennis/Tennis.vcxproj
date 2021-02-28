@@ -142,7 +142,6 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Movable.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="Resource.h" />

@@ -1,20 +1,18 @@
 #pragma once
 
-//#include "Movable.h"
 #include "Vector.h"
 
 
 namespace TennisApp
 {
 	class Ball
-		//: public IMovable
 	{
 	public:
 		Ball();
 
 		void initialize(int x, int y);
 
-		void updatePos(float delta, const RECT& paddle, int rightEdge, int paddlePosY);
+		void updatePos(float delta, const RECT& paddle, int paddlePosY, int rightEdge);
 
 		void draw(HDC hDc);
 
