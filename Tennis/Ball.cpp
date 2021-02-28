@@ -9,8 +9,8 @@ using namespace TennisApp;
 
 const int Width = 25;
 
-//const float Velocity = 150.0f;
-const float Velocity = 75.0f;
+const float Velocity = 125.0f;
+//const float Velocity = 75.0f;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -32,6 +32,8 @@ bool Ball::isGone() const
 
 void Ball::initialize(int x, int y)
 {
+	m_isGone = false;
+
 	m_center.m_x = x;
 	m_center.m_y = y;
 }

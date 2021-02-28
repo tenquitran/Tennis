@@ -20,14 +20,6 @@ namespace TennisApp
 
 		bool isEnded() const;
 
-#if 0
-		bool shouldRun() const;
-#endif
-
-#if 0
-		void processInput();
-#endif
-
 		void updateState();
 
 		void render(HDC hDc);
@@ -38,11 +30,9 @@ namespace TennisApp
 
 		void movePaddle(HWND hWnd, int offset);
 
-	private:
-#if 0
-		bool m_shouldRun = { true };
-#endif
+		int getBallsMissed() const;
 
+	private:
 		std::vector<Wall> m_walls;
 
 		// Game field rectangle.
@@ -57,5 +47,7 @@ namespace TennisApp
 
 		// true if the game is ended.
 		bool m_gameEnded = { false };
+
+		int m_ballsMissed = {};
 	};
 }

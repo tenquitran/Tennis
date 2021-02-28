@@ -52,7 +52,7 @@ bool MainWindow::initialize()
 		ATLASSERT(FALSE); return false;
 	}
 
-	m_backgroundBrush = CreateSolidBrush(RGB(0, 128, 64));
+	m_backgroundBrush = CreateSolidBrush(RGB(0, 128, 64));    // green background
 
 	if (!m_backgroundBrush)
 	{
@@ -68,6 +68,9 @@ bool MainWindow::initialize()
 	}
 
 	m_oldBrush = (HBRUSH)SelectObject(hDc, m_backgroundBrush);
+
+	// Hide cursor.
+	ShowCursor(FALSE);
 
 	ShowWindow(m_hWnd, m_cmdShow);
 	UpdateWindow(m_hWnd);
@@ -118,7 +121,7 @@ ATOM MainWindow::registerClass(HINSTANCE hInstance)
 	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_TENNIS));
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_TENNIS);
+	wcex.lpszMenuName = nullptr;    // MAKEINTRESOURCEW(IDC_TENNIS);
 	wcex.lpszClassName = szWindowClass;
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -180,6 +183,23 @@ void MainWindow::paint(HWND hWnd, HDC hDc)
 	}
 
 	m_game.render(hdcMem);
+
+	// Display the number of missed balls.
+
+	CAtlString str;
+	str.Format(L"Misses: %d", m_game.getBallsMissed());
+
+	RECT textRect = {};
+	textRect.left = (client.right - client.left) / 2 - 40;
+	textRect.right = textRect.left + 120;
+	textRect.top = m_game.getWallThickness();
+	textRect.bottom = textRect.top + 70;
+
+	SetBkMode(hdcMem, TRANSPARENT);
+
+	SetTextColor(hdcMem, RGB(255, 255, 255));    // white text
+
+	DrawText(hdcMem, str, -1, &textRect, DT_SINGLELINE);
 
 	// Blt the changes to the screen DC.
 	if (!BitBlt(
@@ -249,14 +269,23 @@ LRESULT MainWindow::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		return (LRESULT)1;    // for double buffering
 	case WM_TIMER:
 		{
-			pWnd->m_game.updateState();
-
 			if (pWnd->m_game.isEnded())
 			{
+#if 0
 				// TODO: display something more fancy here
 				std::cout << "Game over\n";
 				DestroyWindow(hWnd);
+#else
+				// Restart the game.
+				if (!pWnd->m_game.initialize(hWnd))
+				{
+					std::wcerr << "Failed to initialize the game object\n";
+					ATLASSERT(FALSE);
+				}
+#endif
 			}
+
+			pWnd->m_game.updateState();
 
 #if 1
 			InvalidateRect(hWnd, nullptr, TRUE);

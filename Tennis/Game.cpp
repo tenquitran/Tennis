@@ -19,25 +19,29 @@ Game::~Game()
 
 bool Game::initialize(HWND hWnd)
 {
+	m_gameEnded = false;
+
 	// Create walls.
 	m_walls.emplace_back(Wall(EWallType::West));
 	m_walls.emplace_back(Wall(EWallType::North));
 	m_walls.emplace_back(Wall(EWallType::South));
 
+	resize(hWnd);
+
 	// Place the ball to the center of the screen.
 
-	RECT wndRect = {};
+	RECT client = {};
 
-	if (!GetClientRect(hWnd, &wndRect))
+	if (!GetClientRect(hWnd, &client))
 	{
 		ATLASSERT(FALSE); return false;
 	}
 
-	int centerX = (wndRect.right - wndRect.left) / 2;
-	int centerY = (wndRect.bottom - wndRect.top) / 2;
+	int centerX = (client.right - client.left) / 4;
+	int centerY = (client.bottom - client.top) / 2;
 
 #if 1
-	// Move the ball to the center of the screen.
+	// Move the ball to the right side of the screen.
 	m_ball.initialize(centerX, centerY);
 #else
 	//m_ball.initialize(25, 25);    // top left corner
@@ -45,14 +49,15 @@ bool Game::initialize(HWND hWnd)
 #endif
 
 	// Move the paddle to the center of the right screen's edge.
-	m_paddle.initialize(wndRect.right, centerY);
+	m_paddle.initialize(client.right, centerY);
 
 	return true;
 }
 
 bool Game::shutdown()
 {
-	// TODO: stub
+	m_walls.clear();
+	
 	return true;
 }
 
@@ -61,22 +66,9 @@ bool Game::isEnded() const
 	return m_gameEnded;
 }
 
-#if 0
-bool Game::shouldRun() const
-{
-	return m_shouldRun;
-}
-#endif
-
-#if 0
-void Game::processInput()
-{
-}
-#endif
-
 void Game::updateState()
 {
-	// Time elapsed since last frame (in seconds)...
+	// Time elapsed since last frame (in seconds).
 	float delta = (GetTickCount64() - m_ticks) / 1000.0f;
 
 	// Clamp maximum delta value.
@@ -89,6 +81,7 @@ void Game::updateState()
 
 	if (m_ball.isGone())
 	{
+		++m_ballsMissed;
 		m_gameEnded = true;
 	}
 }
@@ -143,4 +136,9 @@ void Game::resize(HWND hWnd)
 void Game::movePaddle(HWND hWnd, int offset)
 {
 	m_paddle.updatePos(hWnd, offset, getWallThickness());
+}
+
+int Game::getBallsMissed() const
+{
+	return m_ballsMissed;
 }
