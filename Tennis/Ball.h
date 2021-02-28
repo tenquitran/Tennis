@@ -14,7 +14,7 @@ namespace TennisApp
 
 		void initialize(int x, int y);
 
-		void updatePos(float delta);
+		void updatePos(float delta, const RECT& paddle);
 
 		void draw(HDC hDc);
 

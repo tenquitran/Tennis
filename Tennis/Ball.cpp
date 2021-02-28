@@ -32,7 +32,7 @@ void Ball::initialize(int x, int y)
 	m_center.m_y = y;
 }
 
-void Ball::updatePos(float delta)
+void Ball::updatePos(float delta, const RECT& paddle)
 {
 #if 0
 	m_center.m_x += m_velocity.m_x;
@@ -63,6 +63,13 @@ void Ball::updatePos(float delta)
 		)
 	{
 		// Bounce off the west wall.
+		m_velocity.m_x *= -1;
+	}
+
+	// Bounce off the paddle if necessary.
+
+	if (m_center.m_x + Width / 2 > paddle.left)
+	{
 		m_velocity.m_x *= -1;
 	}
 

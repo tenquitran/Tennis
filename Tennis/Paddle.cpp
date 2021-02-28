@@ -27,6 +27,8 @@ void Paddle::initialize(int x, int y)
 {
 	m_center.m_x = x - Width / 2 - RightOffset;
 	m_center.m_y = y;
+
+	recalculateRect();
 }
 
 void Paddle::updatePos(HWND hWnd, int direction, int wallThickness)
@@ -57,18 +59,26 @@ void Paddle::updatePos(HWND hWnd, int direction, int wallThickness)
 	}
 
 	m_center.m_y = newY;
+
+	recalculateRect();
 }
 
 void Paddle::draw(HDC hDc)
 {
 	SelectObject(hDc, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
-	RECT rect = {};
+	Rectangle(hDc, m_rect.left, m_rect.top, m_rect.right, m_rect.bottom);
+}
 
-	rect.left = m_center.m_x - Width / 2;
-	rect.right = m_center.m_x + Width / 2;
-	rect.top = m_center.m_y - Height / 2;
-	rect.bottom = m_center.m_y + Height / 2;
+void Paddle::recalculateRect()
+{
+	m_rect.left = m_center.m_x - Width / 2;
+	m_rect.right = m_center.m_x + Width / 2;
+	m_rect.top = m_center.m_y - Height / 2;
+	m_rect.bottom = m_center.m_y + Height / 2;
+}
 
-	Rectangle(hDc, rect.left, rect.top, rect.right, rect.bottom);
+RECT Paddle::getRect() const
+{
+	return m_rect;
 }

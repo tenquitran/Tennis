@@ -78,7 +78,7 @@ void Game::updateState()
 		delta = 0.05f;
 	}
 
-	m_ball.updatePos(delta);
+	m_ball.updatePos(delta, m_paddle.getRect());
 }
 
 void Game::render(HDC hDc)

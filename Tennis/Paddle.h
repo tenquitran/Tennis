@@ -22,9 +22,17 @@ namespace TennisApp
 
 		void draw(HDC hDc);
 
+		RECT getRect() const;
+
+	private:
+		void recalculateRect();
+
 	private:
 		Vector2Int m_center = {};
 
 		float m_velocity = {};
+
+		// Paddle rectangle.
+		RECT m_rect = {};
 	};
 }
