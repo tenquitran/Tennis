@@ -7,7 +7,8 @@ using namespace TennisApp;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const int Velocity = 150;
+//const float Velocity = 150.0f;
+const float Velocity = -75.0f;
 //const int Velocity = 5;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -42,9 +43,29 @@ void Ball::updatePos(float delta)
 	OutputDebugStringW(str);
 #endif
 
+	if (   m_center.m_y + Width / 2 >= m_field.bottom
+		&& m_velocity.m_y > 0.0f)
+	{
+		// Bounce off the south wall.
+		m_velocity.m_y *= -1;
+	}
+	else if (   m_center.m_y - Width / 2 <= m_field.top 
+		     && m_velocity.m_y < 0.0f)
+	{
+		// Bounce off the north wall.
+		m_velocity.m_y *= -1;
+	}
+
+	if (   m_center.m_x - Width / 2 <= m_field.left
+		//&& m_velocity.m_x > 0.0f
+		)
+	{
+		// Bounce off the west wall.
+		m_velocity.m_x *= -1;
+	}
+
 	m_center.m_x += static_cast<int>(m_velocity.m_x * delta);
 	m_center.m_y += static_cast<int>(m_velocity.m_y * delta);
-#endif
 }
 
 void Ball::draw(HDC hDc)

@@ -41,7 +41,8 @@ bool Game::initialize(HWND hWnd)
 
 	m_ball.moveTo(centerX, centerY);
 #else
-	m_ball.moveTo(25, 25);
+	//m_ball.moveTo(25, 25);    // top left corner
+	m_ball.moveTo(400, 300);    // bottom right area
 #endif
 
 	return true;

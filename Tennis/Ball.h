@@ -21,9 +21,9 @@ namespace TennisApp
 		void resizeGameField(const RECT& rect);
 
 	private:
-		Vector2 m_center = {};
+		Vector2Int m_center = {};
 
-		const Vector2 m_velocity = {};
+		Vector2Float m_velocity = {};
 
 		const int Width = 25;
 
