@@ -1,0 +1,23 @@
+#include "framework.h"
+#include "Paddle.h"
+
+///////////////////////////////////////////////////////////////////////////////
+
+using namespace TennisApp;
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+Paddle::Paddle(int x, int y)
+{
+	m_center.x = x;
+	m_center.y = y;
+}
+
+#if 0
+void Paddle::moveTo(int distX, int distY)
+{
+	// TODO: stub
+}
+#endif
+
