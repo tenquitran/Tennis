@@ -21,7 +21,5 @@ namespace TennisApp
 		EWallType m_type = { EWallType::Unknown };
 
 		RECT m_rect = {};
-
-		const int Thickness = 25;
 	};
 }

@@ -249,10 +249,10 @@ LRESULT MainWindow::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		switch (wParam)
 		{
 		case VK_UP:
-			pWnd->m_game.movePaddle(-1);
+			pWnd->m_game.movePaddle(hWnd, -1);
 			break;
 		case VK_DOWN:
-			pWnd->m_game.movePaddle(1);
+			pWnd->m_game.movePaddle(hWnd, 1);
 			break;
 		}
 	case WM_SIZE:

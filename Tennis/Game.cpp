@@ -120,16 +120,15 @@ void Game::resize(HWND hWnd)
 
 	int thickness = getWallThickness();
 
-	RECT field = {};
-	field.left = thickness;
-	field.top = thickness;
-	field.right = client.right;
-	field.bottom = client.bottom - thickness;
+	m_field.left = thickness;
+	m_field.top = thickness;
+	m_field.right = client.right;
+	m_field.bottom = client.bottom - thickness;
 
-	m_ball.resizeGameField(field);
+	m_ball.resizeGameField(m_field);
 }
 
-void Game::movePaddle(int offset)
+void Game::movePaddle(HWND hWnd, int offset)
 {
-	m_paddle.updatePos(offset);
+	m_paddle.updatePos(hWnd, offset, getWallThickness());
 }

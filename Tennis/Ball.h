@@ -25,8 +25,6 @@ namespace TennisApp
 
 		Vector2Float m_velocity = {};
 
-		const int Width = 25;
-
 		// Game field rectangle.
 		RECT m_field = {};
 	};

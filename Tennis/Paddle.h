@@ -18,16 +18,12 @@ namespace TennisApp
 		virtual void moveTo(int distX, int distY) override;
 #endif
 
-		void updatePos(int direction);
+		void updatePos(HWND hWnd, int direction, int wallThickness);
 
 		void draw(HDC hDc);
 
 	private:
 		Vector2Int m_center = {};
-
-		const int Height = 100;
-
-		const int Width = 25;
 
 		float m_velocity = {};
 	};

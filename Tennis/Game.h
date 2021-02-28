@@ -32,7 +32,7 @@ namespace TennisApp
 
 		void resize(HWND hWnd);
 
-		void movePaddle(int offset);
+		void movePaddle(HWND hWnd, int offset);
 
 	private:
 #if 0
@@ -40,6 +40,9 @@ namespace TennisApp
 #endif
 
 		std::vector<Wall> m_walls;
+
+		// Game field rectangle.
+		RECT m_field = {};
 
 		Ball m_ball;
 

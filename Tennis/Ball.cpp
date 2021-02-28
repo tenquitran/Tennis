@@ -7,6 +7,8 @@ using namespace TennisApp;
 
 ///////////////////////////////////////////////////////////////////////////////
 
+const int Width = 25;
+
 //const float Velocity = 150.0f;
 const float Velocity = -75.0f;
 //const int Velocity = 5;
