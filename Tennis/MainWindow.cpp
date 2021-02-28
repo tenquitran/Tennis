@@ -244,6 +244,17 @@ LRESULT MainWindow::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 		PostQuitMessage(0);
 		break;
+	case WM_KEYDOWN:
+		// Control the paddle.
+		switch (wParam)
+		{
+		case VK_UP:
+			pWnd->m_game.movePaddle(-1);
+			break;
+		case VK_DOWN:
+			pWnd->m_game.movePaddle(1);
+			break;
+		}
 	case WM_SIZE:
 		{
 			//UINT width  = LOWORD(lParam);

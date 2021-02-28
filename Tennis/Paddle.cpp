@@ -7,17 +7,40 @@ using namespace TennisApp;
 
 ///////////////////////////////////////////////////////////////////////////////
 
+const float Velocity = 35.0f;
 
-Paddle::Paddle(int x, int y)
+const int RightOffset = 10;
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+Paddle::Paddle()
+	: m_velocity(Velocity)
 {
-	m_center.x = x;
-	m_center.y = y;
 }
 
-#if 0
-void Paddle::moveTo(int distX, int distY)
+void Paddle::initialize(int x, int y)
 {
-	// TODO: stub
+	m_center.m_x = x - Width / 2 - RightOffset;
+	m_center.m_y = y;
 }
-#endif
 
+void Paddle::updatePos(int direction)
+{
+	// The paddle can move only vertically.
+	m_center.m_y += static_cast<int>(direction * Velocity);
+}
+
+void Paddle::draw(HDC hDc)
+{
+	SelectObject(hDc, (HBRUSH)GetStockObject(WHITE_BRUSH));
+
+	RECT rect = {};
+
+	rect.left = m_center.m_x - Width / 2;
+	rect.right = m_center.m_x + Width / 2;
+	rect.top = m_center.m_y - Height / 2;
+	rect.bottom = m_center.m_y + Height / 2;
+
+	Rectangle(hDc, rect.left, rect.top, rect.right, rect.bottom);
+}

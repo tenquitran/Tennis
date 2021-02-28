@@ -33,17 +33,19 @@ bool Game::initialize(HWND hWnd)
 		ATLASSERT(FALSE); return false;
 	}
 
-#if 0
-	// Move the ball to the center of the screen.
-
 	int centerX = (wndRect.right - wndRect.left) / 2;
 	int centerY = (wndRect.bottom - wndRect.top) / 2;
 
-	m_ball.moveTo(centerX, centerY);
+#if 0
+	// Move the ball to the center of the screen.
+	m_ball.initialize(centerX, centerY);
 #else
-	//m_ball.moveTo(25, 25);    // top left corner
-	m_ball.moveTo(400, 300);    // bottom right area
+	//m_ball.initialize(25, 25);    // top left corner
+	m_ball.initialize(400, 300);    // bottom right area
 #endif
+
+	// Move the paddle to the center of the right screen's edge.
+	m_paddle.initialize(wndRect.right, centerY);
 
 	return true;
 }
@@ -87,6 +89,8 @@ void Game::render(HDC hDc)
 	}
 
 	m_ball.draw(hDc);
+
+	m_paddle.draw(hDc);
 }
 
 int Game::getWallThickness() const
@@ -123,4 +127,9 @@ void Game::resize(HWND hWnd)
 	field.bottom = client.bottom - thickness;
 
 	m_ball.resizeGameField(field);
+}
+
+void Game::movePaddle(int offset)
+{
+	m_paddle.updatePos(offset);
 }

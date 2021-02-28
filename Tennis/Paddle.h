@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Movable.h"
+#include "Vector.h"
 
 
 namespace TennisApp
@@ -9,14 +9,26 @@ namespace TennisApp
 		//: public IMovable
 	{
 	public:
-		Paddle(int x, int y);
+		Paddle();
+
+		void initialize(int x, int y);
 
 #if 0
 		// Move the object to the specified distance (positive or negative).
 		virtual void moveTo(int distX, int distY) override;
 #endif
 
+		void updatePos(int direction);
+
+		void draw(HDC hDc);
+
 	private:
-		POINT m_center = {};
+		Vector2Int m_center = {};
+
+		const int Height = 100;
+
+		const int Width = 25;
+
+		float m_velocity = {};
 	};
 }

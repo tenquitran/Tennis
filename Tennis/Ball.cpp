@@ -24,7 +24,7 @@ void Ball::resizeGameField(const RECT& rect)
 	m_field = rect;
 }
 
-void Ball::moveTo(int x, int y)
+void Ball::initialize(int x, int y)
 {
 	m_center.m_x = x;
 	m_center.m_y = y;
@@ -35,9 +35,9 @@ void Ball::updatePos(float delta)
 #if 0
 	m_center.m_x += m_velocity.m_x;
 	m_center.m_y += m_velocity.m_y;
-#else
+#endif
 
-#ifdef _DEBUG
+#if 0//def _DEBUG
 	CAtlString str;
 	str.Format(L"delta: %f\n", delta);
 	OutputDebugStringW(str);
@@ -79,7 +79,7 @@ void Ball::draw(HDC hDc)
 	rect.top    = m_center.m_y - Width / 2;
 	rect.bottom = m_center.m_y + Width / 2;
 
-#ifdef _DEBUG
+#if 0//def _DEBUG
 	CAtlString str;
 	str.Format(L"center: %d, %d\n", m_center.m_x, m_center.m_y);
 	OutputDebugStringW(str);

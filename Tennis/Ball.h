@@ -12,7 +12,7 @@ namespace TennisApp
 	public:
 		Ball();
 
-		void moveTo(int x, int y);
+		void initialize(int x, int y);
 
 		void updatePos(float delta);
 
